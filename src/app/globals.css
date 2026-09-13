@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* Class-based dark mode so we can invert a single section without flipping the page. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+   Design tokens — light mode (default)
+   Brand primary #020629 stays dominant. Accent #C85103 is used
+   sparingly for CTAs, highlights, active states.
+--------------------------------------------------------------- */
+:root {
+  /* Brand — semantic meaning is locked. Sehass navy is always #020629. */
+  --brand: #020629;
+  --brand-foreground: #ffffff;
+  --brand-hover: #0b1057;
+  --brand-soft: #eef0fb;
+
+  /* Content on brand surfaces — use these anywhere text/icons sit on --brand. */
+  --on-brand: #ffffff;
+  --on-brand-muted: rgba(255, 255, 255, 0.72);
+
+  --accent: #c85103;
+  --accent-foreground: #ffffff;
+  --accent-hover: #a94402;
+  --accent-soft: #fdf1e6;
+
+  /* Eyebrow text — same as --accent on light surfaces; brightens on dark. */
+  --eyebrow: var(--accent);
+
+  /* Surfaces */
+  --background: #ffffff;
+  --foreground: #020629;
+
+  --surface: #f7f7fb;
+  --surface-foreground: #020629;
+  --surface-elevated: #ffffff;
+
+  --muted: #f2f2f6;
+  --muted-foreground: #55556b;
+
+  --border: #e6e6ee;
+  --border-strong: #cfcfdd;
+
+  --ring: #c85103;
+
+  /* State */
+  --success: #0f8b5d;
+  --warning: #b45309;
+  --error: #b91c1c;
+
+  /* Elevation (used inline via var() so we don't shadow Tailwind's utilities) */
+  --shadow-xs: 0 1px 2px rgba(2, 6, 41, 0.04);
+  --shadow-sm: 0 1px 3px rgba(2, 6, 41, 0.06), 0 1px 2px rgba(2, 6, 41, 0.04);
+  --shadow-md: 0 4px 12px rgba(2, 6, 41, 0.08);
+  --shadow-lg: 0 12px 32px rgba(2, 6, 41, 0.10);
+  --shadow-xl: 0 24px 48px rgba(2, 6, 41, 0.14);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 380ms;
+}
+
+/* ---------------------------------------------------------------
+   Dark mode — used on inverted sections (add class="dark").
+   ONLY surface/foreground tokens flip. --brand, --brand-foreground,
+   --brand-hover, --on-brand and the accent stay constant so brand
+   identity is never remapped.
+--------------------------------------------------------------- */
+.dark {
+  --background: #020629;
+  --foreground: #f4f4f8;
+
+  --surface: #0a0f3a;
+  --surface-foreground: #f4f4f8;
+  --surface-elevated: #0d1449;
+
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #a5a5bd;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* --brand-soft is a tinted surface (not the brand itself), so it may
+     adapt to the dark canvas without violating brand semantics. */
+  --brand-soft: rgba(255, 255, 255, 0.08);
+
+  /* Eyebrow needs ~6.5:1 on --brand for AA at 12px; brightened orange. */
+  --eyebrow: #f97316;
+}
+
+/* ---------------------------------------------------------------
+   Tailwind theme — expose tokens as first-class utilities
+--------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+
+  --color-on-brand: var(--on-brand);
+  --color-on-brand-muted: var(--on-brand-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-eyebrow: var(--eyebrow);
+
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-ring: var(--ring);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ---------------------------------------------------------------
+   Base
+--------------------------------------------------------------- */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+/* ---------------------------------------------------------------
+   Reduced motion — respect the user's OS/browser preference.
+   Kills decorative transitions, animations, and hover/active
+   transforms while leaving focus rings and content interactive.
+--------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  *:hover,
+  *:active {
+    transform: none !important;
+  }
+}
