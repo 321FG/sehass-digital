@@ -15,7 +15,11 @@
       "headers": { "X-Robots-Tag": "noindex, follow" }
     },
     {
-      "route": "/*/e-sehass",
+      "route": "/en/e-sehass",
+      "headers": { "X-Robots-Tag": "noindex, follow" }
+    },
+    {
+      "route": "/fr/e-sehass",
       "headers": { "X-Robots-Tag": "noindex, follow" }
     },
     {
@@ -23,7 +27,11 @@
       "headers": { "X-Robots-Tag": "noindex, nofollow" }
     },
     {
-      "route": "/*/design-system/*",
+      "route": "/en/design-system/*",
+      "headers": { "X-Robots-Tag": "noindex, nofollow" }
+    },
+    {
+      "route": "/fr/design-system/*",
       "headers": { "X-Robots-Tag": "noindex, nofollow" }
     }
   ],
