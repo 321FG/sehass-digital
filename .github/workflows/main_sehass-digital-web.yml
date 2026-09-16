@@ -1,65 +1,78 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+name: Deploy Next.js to Azure App Service (sehass-digital-web)
 
-name: Build and deploy Node.js app to Azure Web App - sehass-digital-web
-
-on:
+"on":
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: production-appservice
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22.x'
+  AZURE_WEBAPP_NAME: sehass-digital-web
 
 jobs:
   build:
+    name: Build Next.js
     runs-on: ubuntu-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
-      - name: npm install, build, and test
+      - name: Install dependencies (clean)
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (Next.js production)
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+
+      - name: Prune to production dependencies
+        run: npm prune --omit=dev
+
+      - name: Package deployment artifact
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          zip -r deploy.zip \
+            .next \
+            public \
+            package.json \
+            package-lock.json \
+            next.config.ts \
+            node_modules \
+            -x '.next/cache/*'
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: .
+          name: nextjs-app
+          path: deploy.zip
+          retention-days: 3
 
   deploy:
-    runs-on: ubuntu-latest
+    name: Deploy to Azure App Service
     needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: node-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E36099BA1E7A49D3AFD7DC439D4CD85A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0483B818924245B98065B9D07D825ED9 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8AF9F19AAB98416AA3C9C44B45D0CC64 }}
+          name: nextjs-app
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
+        id: deploy
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'sehass-digital-web'
-          slot-name: 'Production'
-          package: .
-          
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: deploy.zip
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
