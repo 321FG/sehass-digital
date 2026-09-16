@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "ai-image-generation": {
+      "source": "genmedia-labs/skills",
+      "sourceType": "github",
+      "skillPath": "ai-image-generation/SKILL.md",
+      "computedHash": "06f41b40b32a080bc38536156b80a7d4a3175e1b1eeece55fc125e54bee467f3"
+    },
+    "optimize-images": {
+      "source": "b-open-io/gemskills",
+      "sourceType": "github",
+      "skillPath": "skills/optimize-images/SKILL.md",
+      "computedHash": "e61e74f2ed853ee52e08c26eea172f1555269d5d659c9eb54de355d0beb11259"
+    },
     "ui-ux-pro-max": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
