@@ -46,7 +46,7 @@ export default function DesignSystemPreview() {
               Sehass<span className="text-accent">.</span>Digital
             </span>
             <div className="flex items-center gap-3">
-              <Badge variant="outline">Sprint 1 · Design system</Badge>
+              <Badge variant="outline">Sprint 1 Ã‚Â· Design system</Badge>
               <CartButton count={2} href="#" />
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function DesignSystemPreview() {
               </h3>
               <Input placeholder="Full name" />
               <Input type="email" placeholder="you@company.com" />
-              <Textarea placeholder="Tell us about your project…" />
+              <Textarea placeholder="Tell us about your projectÃ¢â‚¬Â¦" />
             </div>
 
             {/* Card */}

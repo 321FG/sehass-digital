@@ -47,6 +47,25 @@ export async function generateMetadata({
         "x-default": `/${defaultLocale}`,
       },
     },
+    openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      url: `/${lang}`,
+      locale: lang === "fr" ? "fr_FR" : "en_US",
+      alternateLocale: lang === "fr" ? "en_US" : "fr_FR",
+      title: dict.metadata.homeTitle,
+      description: dict.metadata.homeDescription,
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+    // Tokens are public by design; injected at build time when present.
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
+      other: process.env.BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+        : undefined,
+    },
   };
 }
 

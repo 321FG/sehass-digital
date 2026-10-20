@@ -1,0 +1,23 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".git{,/**}",
+        ".github{,/**}",
+        ".vscode{,/**}",
+        ".agents{,/**}",
+        ".editorial-source-archive{,/**}",
+        "_publish{,/**}",
+        "_logs{,/**}",
+        "_logs2{,/**}",
+        "deploy.zip",
+        "logs.zip",
+        "logs2.zip",
+        "build.log",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md",
+        "skills-lock.json",
+        "staticwebapp.config.json",
+        ".next/cache{,/**}"
+    ]
+}

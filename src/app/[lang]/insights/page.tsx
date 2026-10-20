@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { FacebookFollow } from "@/components/sections/insights/FacebookFollow";
@@ -24,6 +25,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.insights.metaTitle,
       description: dict.insights.metaDescription,
       type: "website",

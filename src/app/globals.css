@@ -163,6 +163,45 @@
 }
 
 /* ---------------------------------------------------------------
+   Motion — restrained entrance + scroll-reveal utilities.
+   Uses existing tokens only (transform + opacity). The
+   prefers-reduced-motion block below collapses both to ~instant.
+--------------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero / above-the-fold entrance. Stagger via --motion-delay. */
+.motion-fade-up {
+  animation: fade-up var(--duration-slow) var(--ease-out) both;
+  animation-delay: var(--motion-delay, 0ms);
+}
+
+/* Scroll reveal — toggled by the Reveal component's is-revealed class. */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------------------------------------------------------------
    Reduced motion — respect the user's OS/browser preference.
    Kills decorative transitions, animations, and hover/active
    transforms while leaving focus rings and content interactive.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { CapabilitiesGrid } from "@/components/sections/wwb/CapabilitiesGrid";
 import { CapabilityHero } from "@/components/sections/wwb/CapabilityHero";
 import { ClosingCTA } from "@/components/sections/wwb/ClosingCTA";
@@ -31,6 +32,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.wwb.digitalTransformation.metaTitle,
       description: dict.wwb.digitalTransformation.metaDescription,
       type: "website",

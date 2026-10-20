@@ -43,7 +43,8 @@ export function proxy(request: NextRequest) {
   const locale = pickLocale(request);
   const url = request.nextUrl.clone();
   url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  const response = NextResponse.redirect(url);
+  // 308 keeps link equity on the canonical localized URL.
+  const response = NextResponse.redirect(url, 308);
   response.cookies.set(localeCookieName, locale, {
     path: "/",
     maxAge: 60 * 60 * 24 * 365,

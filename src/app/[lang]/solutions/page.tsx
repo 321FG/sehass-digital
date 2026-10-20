@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { SolutionsHero } from "@/components/sections/solutions/SolutionsHero";
 import { SolutionsList } from "@/components/sections/solutions/SolutionSummary";
 import { ClosingCTA } from "@/components/sections/wwb/ClosingCTA";
@@ -25,6 +26,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.solutions.metaTitle,
       description: dict.solutions.metaDescription,
       type: "website",

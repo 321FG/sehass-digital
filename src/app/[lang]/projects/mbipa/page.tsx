@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { ProjectCaseStudy } from "@/components/sections/projects/ProjectCaseStudy";
 import { getProjectBySlug } from "@/data/projects";
 import { getDictionary } from "@/app/[lang]/dictionaries";
@@ -23,6 +24,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.projects.mbipa.metaTitle,
       description: dict.projects.mbipa.metaDescription,
       type: "website",

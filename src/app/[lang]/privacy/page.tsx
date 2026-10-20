@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite, pageTwitter } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { siteConfig } from "@/config/site";
@@ -26,6 +27,13 @@ export async function generateMetadata({
         "x-default": "/en/privacy",
       },
     },
+    openGraph: {
+      ...pageOgSite(lang),
+      title: dict.privacy.metaTitle,
+      description: dict.privacy.metaDescription,
+      type: "website",
+    },
+    twitter: pageTwitter(dict.privacy.metaTitle, dict.privacy.metaDescription),
   };
 }
 

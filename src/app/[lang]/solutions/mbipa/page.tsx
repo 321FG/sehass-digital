@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { SolutionDetailHero } from "@/components/sections/solutions/SolutionDetailHero";
 import { ProblemBuiltSection } from "@/components/sections/solutions/ProblemBuiltSection";
 import { FeatureBlock } from "@/components/sections/solutions/FeatureBlock";
@@ -28,6 +29,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.solutions.detail.mbipa.metaTitle,
       description: dict.solutions.detail.mbipa.metaDescription,
       type: "website",

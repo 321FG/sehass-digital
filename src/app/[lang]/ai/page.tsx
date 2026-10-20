@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { AIAgents } from "@/components/sections/ai/AIAgents";
 import { AICapabilities } from "@/components/sections/ai/AICapabilities";
 import { AIConversational } from "@/components/sections/ai/AIConversational";
@@ -41,6 +42,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title,
       description,
       type: "website",

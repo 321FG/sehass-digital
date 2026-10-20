@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { AboutHero } from "@/components/sections/about/AboutHero";
 import { AboutNarrative } from "@/components/sections/about/AboutNarrative";
 import { AboutPullStatement } from "@/components/sections/about/AboutPullStatement";
@@ -37,6 +38,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: content.meta.title,
       description: content.meta.description,
       type: "website",

@@ -7,7 +7,7 @@ import { getDictionary, getLocale } from "@/app/[lang]/dictionaries";
 // Purpose-built inverted buttons for the dark FinalCTA section.
 // The DS Button primary variant would render invisibly (navy on navy).
 const invertedPrimary = cn(
-  "inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-6 text-base font-medium text-brand",
+  "group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-6 text-base font-medium text-brand",
   "shadow-(--shadow-sm) transition-colors duration-150",
   "hover:bg-white/90 active:translate-y-px",
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-brand",
@@ -48,7 +48,7 @@ export async function FinalCTA() {
                 aria-hidden
                 viewBox="0 0 20 20"
                 fill="none"
-                className="h-4 w-4"
+                className="h-4 w-4 transition-transform duration-150 ease-(--ease-out) group-hover:translate-x-0.5"
               >
                 <path
                   d="M4.5 10h11m0 0-4.5-4.5M15.5 10 11 14.5"

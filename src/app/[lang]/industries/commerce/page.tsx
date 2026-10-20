@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOgSite } from "@/lib/metadata";
 import { IndustryDetailHero } from "@/components/sections/industries/IndustryDetailHero";
 import { PillarsSection } from "@/components/sections/wwb/PillarsSection";
 import { ProcessSteps } from "@/components/sections/wwb/ProcessSteps";
@@ -28,6 +29,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      ...pageOgSite(lang),
       title: dict.industries.detail.commerce.metaTitle,
       description: dict.industries.detail.commerce.metaDescription,
       type: "website",
